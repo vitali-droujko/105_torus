@@ -1,0 +1,47 @@
+#!/usr/bin/env python3
+##
+## EPITECH PROJECT, 2020
+## 105torus
+## File description:
+## main file
+##
+
+from sys import argv, exit
+from torus_utils import error_handling
+from methods import dichotomy, secant, newton
+
+def call_functions(opt, coef, n):
+    inter_min = 0.0
+    inter_max = 1.0
+    newton_inter = 0.5
+
+    if (opt == 1):
+        dichotomy(coef, n, inter_min, inter_max)
+    elif (opt == 2):
+        newton(coef, n, newton_inter)
+    else:
+        secant(coef, n, inter_min, inter_max)
+    return
+
+def main():
+    error = 0
+
+    if len(argv) != 8:
+        error_handling(84)
+    try:
+        opt = int(argv[1])
+        coef = [int(argv[2]), int(argv[3]), int(argv[4]), int(argv[5]), int(argv[6])]
+        n = int(argv[7])
+        if opt < 1 or opt > 3 or n < 0:
+            error = 1
+            error_handling(84)
+    except:
+        if error == 0:
+            error_handling(84)
+        else:
+            exit(84);
+    call_functions(opt, coef, n)
+    return 0
+
+if __name__ == "__main__":
+    main()
